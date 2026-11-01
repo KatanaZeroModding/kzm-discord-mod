@@ -1,0 +1,12 @@
+# Public Discord application client ID. Not a secret.
+# https://discord.com/developers/applications
+application_id = ""
+
+# auto reads the game language. ru or en forces one.
+language = "auto"
+
+# chapter shows the place and track. vague shows only menu or mission.
+privacy = "chapter"
+
+# Discord draws the clock from a start timestamp. This does not print seconds.
+show_elapsed = true

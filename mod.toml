@@ -1,0 +1,76 @@
+id = "kzm-discord"
+name = "KZM Discord"
+version = "0.1.0"
+authors = ["An1by"]
+description = "Discord Rich Presence: место, трек, спидран и персонаж."
+cover = "assets/avatars/zero.png"
+kzm_spec = 1
+legacy = false
+
+[game]
+cleanRoot = false
+
+[depends]
+
+[conflicts]
+mods = []
+
+[lua]
+sourceEntry = "lua/main.lua"
+distEntry = "dist/entry.lua"
+priority = 80
+loadlistExtra = []
+
+[lua.hooks]
+scripts = []
+objects = [
+    "obj_global_controller",
+    "obj_master",
+    "obj_titlemenu",
+    "obj_gametitle_splash",
+    "obj_pausemenu",
+    "obj_gamepaused",
+    "obj_player",
+    "obj_speedrun_master",
+    "obj_musicmaster",
+]
+
+[lua.hooks.merge]
+
+[native]
+plugins = ["dist/kzm_discord.dll"]
+
+[native.steam]
+mode = "off"
+
+[[assets]]
+src = "config/discord.default.toml"
+dest = "discord.default.toml"
+gameRoot = false
+
+[[assets]]
+src = "assets/avatars/zero.png"
+dest = "avatars/zero.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/avatars/fifteen.png"
+dest = "avatars/fifteen.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/avatars/snow.png"
+dest = "avatars/snow.png"
+gameRoot = false
+
+[patches]
+mode = "none"
+bundle = []
+
+[i18n]
+defaultLocale = ""
+fallbackLocale = ""
+
+[i18n.ui]
+
+[i18n.dialogues]
