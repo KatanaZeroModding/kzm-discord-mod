@@ -69,9 +69,13 @@ fn read_app_id(dir: &Path) -> String {
 fn app_id_from(text: &str) -> Option<String> {
     for line in text.lines() {
         let line = line.trim();
-        let rest = line.strip_prefix("application_id")?.trim();
-        let rest = rest.strip_prefix('=')?.trim();
-        let id = rest.trim_matches('"').trim();
+        let Some(rest) = line.strip_prefix("application_id") else {
+            continue;
+        };
+        let Some(rest) = rest.trim().strip_prefix('=') else {
+            continue;
+        };
+        let id = rest.trim().trim_matches('"').trim();
         if id.is_empty() || id.chars().any(|c| !c.is_ascii_digit()) {
             return Some(String::new());
         }
@@ -252,9 +256,9 @@ fn copy_id(mod_id: *const std::os::raw::c_char) -> String {
     unsafe { CStr::from_ptr(mod_id).to_string_lossy().into_owned() }
 }
 
-/// Called once by kzm_host. `extern "system"` matches the host's stdcall call on x86.
+/// Called once by kzm_host as cdecl. stdcall pops the argument twice and crashes startup.
 #[no_mangle]
-pub extern "system" fn KZM_PluginInit(mod_id: *const std::os::raw::c_char) -> i32 {
+pub extern "C" fn KZM_PluginInit(mod_id: *const std::os::raw::c_char) -> i32 {
     let _id = copy_id(mod_id);
     let started = thread::Builder::new()
         .name("kzm-discord".to_string())
@@ -263,4 +267,37 @@ pub extern "system" fn KZM_PluginInit(mod_id: *const std::os::raw::c_char) -> i3
         log_line(&mod_dir(), "failed to start presence thread");
     }
     0
+}
+
+#[cfg(test)]
+mod app_id_tests {
+    use super::app_id_from;
+
+    #[test]
+    fn reads_the_id_under_comments() {
+        let text = "# Public Discord application client ID. Not a secret.\n\
+# https://discord.com/developers/applications\n\
+application_id = \"1566329696080109698\"\n\
+language = \"auto\"\n";
+        assert_eq!(
+            app_id_from(text).as_deref(),
+            Some("1566329696080109698")
+        );
+    }
+
+    #[test]
+    fn skips_unrelated_lines() {
+        let text = "language = \"auto\"\napplication_id = \"42\"\n";
+        assert_eq!(app_id_from(text).as_deref(), Some("42"));
+    }
+
+    #[test]
+    fn missing_key_is_none() {
+        assert_eq!(app_id_from("# comment\nlanguage = \"auto\"\n"), None);
+    }
+
+    #[test]
+    fn blank_id_stays_blank() {
+        assert_eq!(app_id_from("application_id = \"\"\n").as_deref(), Some(""));
+    }
 }

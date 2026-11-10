@@ -18,7 +18,7 @@ Discord Rich Presence для Katana ZERO через KZM. В статусе ме�
    - `assets/avatars/zero.png` под ключом `zero`
    - `assets/avatars/fifteen.png` под ключом `fifteen`
    - `assets/avatars/snow.png` под ключом `snow`
-   `zero.png` же поставьте иконкой приложения. Пока ключей нет, статус уходит без портрета.
+   `zero.png` же поставьте иконкой приложения. Пока ключей нет, статус уходит без портрета. Файлы — головы из `spr_player_nosword_casual_idle`, `spr_dragon_idle` и `spr_snow_idle`. Ещё загрузите все файлы из `assets/places/` под ключом как имя файла (`menu`, `apartment`, `katana` и остальные). Большая картинка — место. `katana` стоит, когда для места нет кадра или включена приватность vague.
 3. Сборка:
 
 ```bash
@@ -43,7 +43,7 @@ show_elapsed = true
 
 ## Персонаж
 
-1. Первая строка `kz_character_choice.txt` в корне игры (Katana SNOW пишет туда `snow`).
+1. Первая строка `kz_character_choice.txt` в корне игры, если файл есть.
 2. Иначе поле персонажа у игрока, у объекта спидрана или в глобалах.
 3. Иначе Зеро.
 

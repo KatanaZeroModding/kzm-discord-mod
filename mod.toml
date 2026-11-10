@@ -19,7 +19,7 @@ mods = []
 sourceEntry = "lua/main.lua"
 distEntry = "dist/entry.lua"
 priority = 80
-loadlistExtra = []
+loadlistExtra = ["mods/kzm-discord/hooks.lua"]
 
 [lua.hooks]
 scripts = []
@@ -49,6 +49,11 @@ dest = "discord.default.toml"
 gameRoot = false
 
 [[assets]]
+src = "lua/hooks.lua"
+dest = "hooks.lua"
+gameRoot = false
+
+[[assets]]
 src = "assets/avatars/zero.png"
 dest = "avatars/zero.png"
 gameRoot = false
@@ -61,6 +66,101 @@ gameRoot = false
 [[assets]]
 src = "assets/avatars/snow.png"
 dest = "avatars/snow.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/menu.png"
+dest = "places/menu.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/level_select.png"
+dest = "places/level_select.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/apartment.png"
+dest = "places/apartment.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/hotel.png"
+dest = "places/hotel.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/factory.png"
+dest = "places/factory.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/club.png"
+dest = "places/club.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/prison.png"
+dest = "places/prison.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/chinatown.png"
+dest = "places/chinatown.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/studio.png"
+dest = "places/studio.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/mansion.png"
+dest = "places/mansion.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/bunker.png"
+dest = "places/bunker.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/lab.png"
+dest = "places/lab.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/cathedral.png"
+dest = "places/cathedral.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/psychiatrist.png"
+dest = "places/psychiatrist.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/bar.png"
+dest = "places/bar.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/rooftop.png"
+dest = "places/rooftop.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/videostore.png"
+dest = "places/videostore.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/dream.png"
+dest = "places/dream.png"
+gameRoot = false
+
+[[assets]]
+src = "assets/places/katana.png"
+dest = "places/katana.png"
 gameRoot = false
 
 [patches]

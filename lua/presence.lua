@@ -37,6 +37,35 @@ local watched = {}
 local config = config_mod.load()
 local config_at = -1000
 
+local PLACE_ART = {
+  menu = "menu",
+  level_select = "level_select",
+  apartment = "apartment",
+  hotel = "hotel",
+  factory = "factory",
+  club = "club",
+  prison = "prison",
+  chinatown = "chinatown",
+  studio = "studio",
+  mansion = "mansion",
+  bunker = "bunker",
+  lab = "lab",
+  cathedral = "cathedral",
+  psychiatrist = "psychiatrist",
+  bar = "bar",
+  rooftop = "rooftop",
+  videostore = "videostore",
+  dream = "dream",
+}
+
+local function large_key(place)
+  if config.privacy == "vague" then
+    return "katana"
+  end
+  return PLACE_ART[place] or "katana"
+end
+
+
 local place_key = nil
 local chapter_anchor = nil
 local run_anchor = nil
@@ -132,19 +161,23 @@ local function json_string(value)
 end
 
 local function encode(snapshot)
-  local image = "null"
-  if snapshot.small_image and snapshot.small_image ~= "" then
-    image = json_string(snapshot.small_image)
+  local function field(value)
+    if value and value ~= "" then
+      return json_string(value)
+    end
+    return "null"
   end
   local stamp = "null"
   if type(snapshot.timestamp_start) == "number" then
     stamp = string.format("%d", math.floor(snapshot.timestamp_start))
   end
   return string.format(
-    "{\"details\":%s,\"state\":%s,\"small_image\":%s,\"small_text\":%s,\"timestamp_start\":%s}\n",
+    "{\"details\":%s,\"state\":%s,\"large_image\":%s,\"large_text\":%s,\"small_image\":%s,\"small_text\":%s,\"timestamp_start\":%s}\n",
     json_string(snapshot.details),
     json_string(snapshot.state),
-    image,
+    field(snapshot.large_image),
+    json_string(snapshot.large_text or ""),
+    field(snapshot.small_image),
     json_string(snapshot.small_text or ""),
     stamp
   )
@@ -578,14 +611,17 @@ function Presence.poll()
     end
   end
 
+  local details = details_for(place, lang)
   local small_text = ""
   if config.privacy ~= "vague" then
     small_text = text.get(lang, who)
   end
 
   write_snapshot(encode({
-    details = details_for(place, lang),
+    details = details,
     state = compose_state(track_title(clock), paused, lang),
+    large_image = large_key(place),
+    large_text = details,
     small_image = who,
     small_text = small_text,
     timestamp_start = stamp,

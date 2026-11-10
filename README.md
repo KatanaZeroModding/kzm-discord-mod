@@ -18,7 +18,7 @@ Quiet versions of one song (`song_edm` and `song_edm_far`, neighbor music near a
    - `assets/avatars/zero.png` as `zero`
    - `assets/avatars/fifteen.png` as `fifteen`
    - `assets/avatars/snow.png` as `snow`
-   Use `zero.png` as the application icon as well. The key must match the file name. Until those keys exist, the status is sent without a portrait.
+   Use `zero.png` as the application icon as well. The key must match the file name. Until those keys exist, the status is sent without a portrait. The files are head crops of `spr_player_nosword_casual_idle`, `spr_dragon_idle`, and `spr_snow_idle`. Also upload every file in `assets/places/` under the same key as its file name (`menu`, `apartment`, `katana`, and the rest). The large image is the place. `katana` is the fallback when the place has no picture, or when privacy is vague.
 3. Build the native plugin, then the mod:
 
 ```bash
@@ -43,7 +43,7 @@ An empty application id does nothing and does not affect the game. If Discord is
 
 ## Character
 
-1. First line of `kz_character_choice.txt` in the game folder (`snow` when Katana SNOW wrote it).
+1. First line of `kz_character_choice.txt` in the game folder, when that file is present.
 2. Otherwise a character field on the player, the speedrun object, or a global.
 3. Otherwise Zero.
 

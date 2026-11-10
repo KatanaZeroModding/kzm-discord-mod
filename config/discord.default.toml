@@ -1,6 +1,6 @@
 # Public Discord application client ID. Not a secret.
 # https://discord.com/developers/applications
-application_id = ""
+application_id = "1566329696080109698"
 
 # auto reads the game language. ru or en forces one.
 language = "auto"
@@ -10,3 +10,4 @@ privacy = "chapter"
 
 # Discord draws the clock from a start timestamp. This does not print seconds.
 show_elapsed = true
+
